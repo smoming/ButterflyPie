@@ -1,0 +1,16 @@
+﻿@model ProductMastQuery
+
+<fieldset>
+    <legend>商品庫存</legend>
+    @using (Html.BeginForm("Report", "ProductMast", FormMethod.Post))
+    {
+        <table>
+            <tr>
+                <td>
+                    @Html.EditorFor(m => m.QueryDate)
+                    @IconHelper.IconButton("列印", Icon.Print, "btnPrint", "submit")
+                </td>
+            </tr>
+        </table>
+    }
+</fieldset>

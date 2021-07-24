@@ -1,0 +1,35 @@
+﻿@model ProductBase
+
+<table>
+    <tr>
+        <td width="10%">生效日期</td>
+        <td>@Html.EditorFor(m => m.EffectiveDate)</td>
+        <td width="10%">批發價(日圓)</td>
+        <td>@Html.EditorFor(m => m.WholeSalePrice)</td>
+    </tr>
+    <tr>
+        <td>代碼</td>
+        <td>@Html.EditorFor(m => m.ID)</td>
+        <td>批發價(台幣)</td>
+        <td>@Html.EditorFor(m => m.WholeSalePriceBas)</td>
+    </tr>
+    <tr>
+        <td>中文名稱</td>
+        <td>@Html.EditorFor(m => m.ChineseName)</td>
+        <td>零售價(台幣)</td>
+        <td>@Html.EditorFor(m => m.RetailPrice)</td>
+    </tr>
+    <tr>
+        <td>日文名稱</td>
+        <td>@Html.EditorFor(m => m.JapaneseName)</td>
+        <td>起批數量</td>
+        <td>@Html.EditorFor(m => m.MinimalOrder)</td>
+    </tr>
+    <tr>
+        <td>原始價(日圓)</td>
+        <td>@Html.EditorFor(m => m.OriginalPrice)</td>
+        <td>備註</td>
+        <td>@Html.EditorFor(m => m.Remark)</td>
+    </tr>
+</table>
+

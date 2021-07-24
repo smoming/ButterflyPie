@@ -1,0 +1,29 @@
+﻿@model List<RateConfig>
+
+<table id="grid">
+    <thead>
+        <tr>
+            <td>生效日期</td>
+            <td>類別</td>
+            <td>費率百分比/費率</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var it in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(m => it.EffectiveDate)</td>
+                <td>@Html.DisplayFor(m => it.Category)</td>
+                <td>@Html.DisplayFor(m => it.PercentageRate)</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script type="text/javascript">
+    $(function () {
+        grid = $("table#grid").DataTable({
+            "aaSorting": []
+        });
+    })
+</script>

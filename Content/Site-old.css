@@ -1,0 +1,270 @@
+﻿/* 全站自訂CSS
+建議放在最後載入，以確保會覆蓋其他CSS設定
+-----------------------------------------------------------*/
+body {
+    font-size: 13px;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    text-align: center;
+    font-family: Tahoma, Verdana, Arial, sans-serif;
+    color: #232323;
+    background-color: #fff;
+}
+
+.head {
+    background-image: url(Images/head.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 230px;
+    width: 100%;
+    text-align: center;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 3em;
+    color: white;
+    font-weight: bold;
+}
+
+.homeButtonPosition {
+    position: relative;
+    top: 80px;
+    left: -30px;
+}
+
+.homeButton {
+    background: url(Images/headshot.jpg) no-repeat top left;
+    display: block;
+    width: 150px;
+    height: 150px;
+    text-indent: -9999px;
+
+    border-radius: 50%;
+    border: 5px solid #fff;
+    box-shadow: 8px 24px 2px rgba(100%,0%,0%,0.4),16px -4px 2px rgba(0%,100%,0%,0.4),24px 12px 2px rgba(0%,0%,100%,0.4);
+    zoom: 0.8;
+    z-index: 2;
+}
+
+.bg {
+    background-image: url(Images/bg.gif);
+    background-position: center top;
+    background-repeat: no-repeat;
+    min-height: 540px;
+    width: 100%;
+}
+
+header {
+    background-image: url(Images/banner.jpg);
+    background-repeat: no-repeat;
+    min-height: 50px;
+    min-width: 960px;
+    text-align: right;
+    color: #FFF;
+}
+
+h1, h2, h3, h4, strong, b, em {
+    font-weight: bold;
+}
+
+h3 {
+    /* Title(Function Name) */
+    font-size: 1.5em;
+    line-height: 2em;
+}
+
+.ui-widget, .ui-widget .ui-widget, .ui-widget input, .ui-widget select, .ui-widget textarea, .ui-widget button {
+    /* 覆蓋jQueryUI預設值*/
+    font-size: 1em;
+}
+
+.ui-accordion {
+    /* 收合 */
+    margin: 0 0 1em 0;
+}
+
+.tip {
+    /* Tips 使用的css class*/
+    border: 2px solid #F9E98E;
+    background: #FBF7AA;
+}
+
+/* Menu
+-----------------------------------------------------------*/
+.ui-menubar .ui-menu {
+    width: 18em;
+}
+
+ul.domestic {
+    background-color: #502FA9;
+    background-image: none;
+}
+
+ul.foreign {
+    background-color: #FBB007;
+    background-image: none;
+}
+/* Menu & 主要顯示範圍
+-----------------------------------------------------------*/
+#container {
+    margin: 0 auto;
+    padding: 0;
+    width: 960px;
+}
+
+body > * {
+    /*for jQuery UI dialog */
+    text-align: left;
+}
+
+input {
+    border: 1px solid #AAA;
+}
+
+.center, th, .datebox, .timebox {
+    text-align: center;
+}
+
+input.datebox {
+    /*日期*/
+    width: 90px;
+}
+
+input.timebox {
+    /*時間*/
+    width: 60px;
+}
+
+.right, .dec, input[data-val-number] {
+    /*數字類的靠右對齊*/
+    text-align: right;
+}
+
+select {
+    /*統一下拉選單寬度*/
+    width: 10em;
+}
+
+.read-only, [readonly=readonly], [disabled=disabled] {
+    background-color: #E0E0E0;
+}
+
+td {
+    vertical-align: middle;
+}
+
+.autowidth, fieldset select {
+    width: auto;
+    max-width: 10em;
+}
+
+/* 原屬性
+-----------------------------------------------------------*/
+header, footer, section {
+    display: block;
+}
+
+footer {
+    color: #DDDDDD;
+    position: fixed;
+    font-size: 0.5em;
+    right: 0px;
+    bottom: 0px;
+}
+
+/* Styles for basic forms
+-----------------------------------------------------------*/
+fieldset {
+    border: 1px solid #ddd;
+    padding: 1em;
+    margin: 0 0 1em 0;
+}
+
+legend {
+    font-size: 1.2em;
+    padding: 0.25em;
+    font-weight: bold;
+}
+
+textarea {
+    min-height: 75px;
+    resize: vertical;
+}
+
+.editor-label {
+    margin: 1em 0 0 0;
+}
+
+.editor-field {
+    margin: 0.5em 0 0 0;
+}
+
+/* Styles for validation helpers
+-----------------------------------------------------------*/
+.field-validation-error {
+    color: #ff0000;
+}
+
+.field-validation-valid {
+    display: none;
+}
+
+.input-validation-error {
+    border: 1px solid #ff0000;
+    background-color: #ffeeee;
+}
+
+.validation-summary-errors {
+    font-weight: bold;
+    color: #ff0000;
+}
+
+.validation-summary-valid {
+    display: none;
+}
+
+a:link, a:visited {
+    /*連結不顯示底線*/
+    text-decoration: none;
+}
+
+a:hover {
+    /*滑鼠移動到連結上，顯示底線*/
+    color: #ff0000;
+    text-decoration: underline;
+}
+
+.tdShortWidth {
+    width: 10%;
+}
+
+.tdLongWidth {
+    width: 20%;
+}
+
+#ShowStockID {
+    width: 50px;
+}
+
+.hidden {
+    display: none;
+}
+
+.title {
+    font-size: 1.5em;
+    font-family: 微軟正黑體;
+    text-align: start;
+    background-color: #c5dbec;
+    font-weight: bold;
+}
+
+.title_main {
+    font-size: 2em;
+    font-family: 微軟正黑體;
+    text-align: center;
+    background-color: #c5dbec;
+    font-weight: bold;
+}
+
+.tdLabel {
+    text-align: right;
+}

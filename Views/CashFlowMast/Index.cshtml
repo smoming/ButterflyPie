@@ -1,0 +1,17 @@
+﻿@model CashFlowMastQuery
+
+<fieldset>
+    <legend>金流庫存</legend>
+    @using (Html.BeginForm("Report", "CashFlowMast", FormMethod.Post))
+    {
+        <table>
+            <tr>
+                <td>
+                    @Html.EditorFor(m => m.QueryDate_Start)~
+                    @Html.EditorFor(m => m.QueryDate_End)
+                    @IconHelper.IconButton("列印", Icon.Print, "btnPrint", "submit")
+                </td>
+            </tr>
+        </table>
+    }
+</fieldset>

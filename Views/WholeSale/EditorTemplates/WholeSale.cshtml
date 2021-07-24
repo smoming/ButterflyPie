@@ -1,0 +1,55 @@
+﻿@model WholeSale
+
+<table>
+    <tr>
+        <td>批發日期</td>
+        <td>@Html.EditorFor(m => m.TradeDate)</td>
+        <td>批發金額(日圓)</td>
+        <td>@Html.EditorFor(m => m.Amount)</td>
+    </tr>
+    <tr>
+        <td>商品代碼</td>
+        <td>@Html.EditorFor(m => m.ProductID)</td>
+
+        <td>批發金額(台幣)</td>
+        <td>@Html.EditorFor(m => m.AmountBas)</td>
+    </tr>
+    <tr>
+        <td>批發數量</td>
+        <td>@Html.EditorFor(m => m.WsQuantity)</td>
+        <td>批發重量</td>
+        <td>@Html.EditorFor(m => m.Weight)</td>
+    </tr>
+    <tr>
+        <td>數量</td>
+        <td>@Html.EditorFor(m => m.Quantity)</td>
+        <td>運費(台幣)</td>
+        <td>@Html.EditorFor(m => m.Shipment)</td>
+    </tr>
+</table>
+
+<script type="text/javascript">
+    $(function () {
+
+        EditV.find("#ProductID").typeahead({
+            displayText: function (item) {
+                return item.Name;
+            },
+            items: 10,
+            source: function (request, response) {
+                return response(dataSource);
+            },
+            updater: function (item) {
+                EditV.find("#ProductID").val(item.ID);
+                $.post(urlGetQuantityAmount, { xTradeDate: $("#TradeDate").val(), xProductID: $("#ProductID").val(), xWsQuantity: $("#WsQuantity").val() }, function (d) {
+                    EditV.find("#Quantity").val(d.xQuantity);
+                    EditV.find("#Amount").val(d.xAmount);
+                    EditV.find("#AmountBas").val(d.xAmountBas);
+                });
+            },
+            matcher: function (item) {
+                return ~item.Name.indexOf(this.query);
+            }
+        });
+    });
+</script>

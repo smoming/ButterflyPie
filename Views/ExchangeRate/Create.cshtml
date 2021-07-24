@@ -1,0 +1,18 @@
+﻿@model ExchangeRate
+
+<fieldset>
+    <legend>新增</legend>
+    @using (Ajax.BeginForm("Add", new AjaxOptions()
+    {
+        HttpMethod = "Post",
+        InsertionMode = InsertionMode.Replace,
+        UpdateTargetId = "EditV",
+        OnSuccess = "Saved"
+    }))
+    {
+        @Html.EditorForModel()
+        @IconHelper.IconButton("儲存", Icon.Cancel, "btnSave", "submit")
+        @IconHelper.IconButton("取消", Icon.Cancel, "btnCancel")
+    }
+</fieldset>
+

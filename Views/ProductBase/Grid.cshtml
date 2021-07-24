@@ -1,0 +1,32 @@
+﻿@model List<ProductBase>
+
+<table id="grid">
+    <thead>
+        <tr>
+            <td>生效日期</td>
+            <td>代碼</td>
+            <td>中文名稱</td>
+            <td>日文名稱</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var it in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(m => it.EffectiveDate)</td>
+                <td>@Html.DisplayFor(m => it.ID)</td>
+                <td>@Html.DisplayFor(m => it.ChineseName)</td>
+                <td>@Html.DisplayFor(m => it.JapaneseName)</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script type="text/javascript">
+    $(function () {
+        grid = $("table#grid").DataTable({
+            "aaSorting": []
+        });
+    })
+</script>
+

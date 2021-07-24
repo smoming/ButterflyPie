@@ -1,0 +1,35 @@
+﻿@model List<OrderTrans>
+
+<table id="grid">
+    <thead>
+        <tr>
+            <td>下單日期</td>
+            <td>下單號碼</td>
+            <td>使用者代碼</td>
+            <td>商品代碼</td>
+            <td>商品日文名稱</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var it in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(m => it.OrderDate)</td>
+                <td>@Html.DisplayFor(m => it.OrderNo)</td>
+                <td>@Html.DisplayFor(m => it.UserID)</td>
+                <td>@Html.DisplayFor(m => it.ProductID)</td>
+                <td>@Html.DisplayFor(m => ProductBase.GetLastest(it.OrderDate, it.ProductID).JapaneseName)</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script type="text/javascript">
+    $(function () {
+        grid = $("table#grid").DataTable({
+            "aaSorting": []
+        });
+    })
+</script>
+
+

@@ -1,0 +1,25 @@
+﻿@model AccountQuery
+
+@if (TempData["message"] != null)
+{
+    Html.MessageView(((BooleanMessage)TempData["message"]).Message);
+}
+<fieldset>
+    <legend>商品庫存結帳</legend>
+    @using (Html.BeginForm("Accounted", "PMAccount"))
+    {
+        <table>
+            <tr>
+                <td>@Html.HiddenFor(m => m.LastestDate)
+                    <b>@Html.DisplayFor(m => m.LastestDate)</b>~@Html.EditorFor(m => m.TradeDate)</td>
+                <td>@IconHelper.IconButton("結帳", Icon.Save, "btnAccount", "submit")</td>
+            </tr>
+        </table>
+    }
+</fieldset>
+
+<script type="text/javascript">
+    $(function () {
+        $("#LastestDate").attr("readonly", true);
+    });
+</script>

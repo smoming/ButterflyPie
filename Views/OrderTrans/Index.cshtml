@@ -1,0 +1,113 @@
+﻿@model OrderTransQuery
+
+<fieldset>
+    <legend>下單交易資料</legend>
+    <table>
+        <tr>
+            <td>
+                @Html.EditorFor(m => m.QueryDate_Start)~@Html.EditorFor(m => m.QueryDate_End)
+                @Html.EditorFor(m => m.QueryUserID)
+                @IconHelper.IconButton("查詢", Icon.Search, "btnQuery")
+                @IconHelper.IconButton("列印", Icon.Print, "btnPrint")
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @*@Ajax.ActionLink("新增", "Create", null, new AjaxOptions()
+                    {
+                        HttpMethod = "Get",
+                        InsertionMode = InsertionMode.Replace,
+                        UpdateTargetId = "EditV",
+                        OnSuccess = "CreateReady"
+                    }, IconHelper.IconAttr(Icon.Add))*@
+                @IconHelper.IconButton("新增", Icon.Add, "btnCreate")
+            </td>
+        </tr>
+    </table>
+</fieldset>
+
+<div id="EditV"></div>
+<br />
+<div id="GridV"></div>
+
+@section scripts {
+    <script type="text/javascript">
+        var urlGrid = '@Url.Action("Grid")';
+        var urlCreate = '@Url.Action("Create")';
+        var urlEdit = '@Url.Action("Edit")';
+        var urlGetAmount = '@Url.Action("GetAmount")';
+        var urlGetAuto = '@Url.Action("GetAuto")';
+        var urlReport = '@Url.Action("Report")';
+        var EditV, GridV, grid;
+        var dataSource = new Array();
+
+        $(function () {
+            EditV = $("#EditV");
+            GridV = $("#GridV");
+
+            GridV.on("click", "tbody tr", DatarowClick);
+            EditV.on("click", "#btnCancel", clearEdit);
+
+            $("#btnQuery").on("click", LoadGrid);
+            $("#btnCreate").on("click", function () {
+                EditV.load(urlCreate, CreateReady);
+            });
+            $("#btnPrint").on("click", function () {
+                window.open(urlReport + "?xTradeDate_Start=" + $("#QueryDate_Start").val() + "&xTradeDate_End=" + $("#QueryDate_End").val());
+            });
+
+            LoadGrid();
+
+            EditV.on("change", "#Quantity, #OrderDate", function () {
+                $.post(urlGetAmount, { xOrderDate: $("#OrderDate").val(), xID: $("#ProductID").val(), xQuantity: $("#Quantity").val() }, function (d) {
+                    EditV.find("#Amount").val(d.xAmount);
+                });
+            });
+
+            EditV.on("change", "#ReceiveDate", function () {
+                var RV = 0;
+                if ($("#ReceiveDate").val() != "") {
+                    RV = $("#Amount").val();
+                }
+                EditV.find("#ReceivedAmount").val(RV);
+            });
+
+            SetAutoData();
+        });
+
+        function CreateReady() {
+            EditV.find("#OrderDate").attr("readonly", false);
+        }
+
+        function LoadGrid() {
+            GridV.load(urlGrid, { date_start: $("#QueryDate_Start").val(), date_end: $("#QueryDate_End").val(), userid: $("#QueryUserID").val() });
+        }
+
+        function clearEdit() {
+            EditV.empty();
+        }
+
+        function DatarowClick() {
+            var currData = grid.row(this).data();
+            if (currData != null) {
+                EditV.load(urlEdit, {
+                    xOrderNo: currData[1]
+                });
+            }
+        }
+
+        function Saved(d) {
+            if (d.isSuccess)
+                LoadGrid();
+
+            alert(d.Message);
+        }
+
+        function SetAutoData() {
+            $.get(urlGetAuto, function (d) {
+                dataSource = d;
+            });
+        }
+
+    </script>
+}

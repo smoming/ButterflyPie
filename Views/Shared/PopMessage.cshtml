@@ -1,0 +1,13 @@
+﻿@model SystemMessage
+@{
+    string result = Model.Message.Replace(Environment.NewLine, string.Empty).Replace("\r", string.Empty).Replace("\n", string.Empty);
+}
+<script type="text/javascript">
+    $(function () {
+        $('<div><p>@result</p></div>').dialog({
+            resizable: false, autoOpen: true, modal: true,
+            title: ('@Model.Title.Trim()' == '') ? $('title:first').text() : '@Model.Title', //沒有Title,預設以該頁面的FunctionName為視窗Title
+            buttons: { "確定": function () { $(this).dialog("close"); } }
+        });
+    });
+</script>

@@ -1,0 +1,32 @@
+﻿@model List<ExchangeRate>
+
+<table id="grid">
+    <thead>
+        <tr>
+            <td>日期</td>
+            <td>原始幣別</td>
+            <td>換匯幣別</td>
+            <td>匯率</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var it in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(m => it.TradeDate)</td>
+                <td>@Html.DisplayFor(m => it.CurrencyFrom)</td>
+                <td>@Html.DisplayFor(m => it.CurrencyTo)</td>
+                <td>@Html.DisplayFor(m => it.Rate)</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script type="text/javascript">
+    $(function () {
+        grid = $("table#grid").DataTable({
+            "aaSorting": []
+        });
+    })
+</script>
+

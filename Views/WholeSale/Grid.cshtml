@@ -1,0 +1,63 @@
+﻿@model List<WholeSale>
+@{
+    DateTime xInsertDate = DateTime.Today;
+    if (Model.Any()) { 
+        xInsertDate = Model.First().TradeDate;
+    }
+}
+@if (Model.Any())
+{
+    <div style="text-align:right; ">
+        @using (Ajax.BeginForm("DoInsert", new AjaxOptions()
+        {
+            HttpMethod = "Post",
+            InsertionMode = InsertionMode.Replace,
+            UpdateTargetId = "EditV",
+            OnSuccess = "Saved"
+        }))
+        {
+            @Html.Hidden("xTradeDate", xInsertDate)
+            @IconHelper.IconButton("寫入", Icon.Add, "btnSave", "submit")
+        }
+</div>
+}
+<table id="grid">
+    <thead>
+        <tr>
+            <td>結算日期</td>
+            <td>商品代碼</td>
+            <td>批發數量</td>
+            <td>數量</td>
+            <td>金額(JPY)</td>
+            <td>金額(TWD)</td>
+            <td>批發重量</td>
+            <td>運費(TWD)</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var it in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(m => it.TradeDate)</td>
+                <td>@Html.DisplayFor(m => it.ProductID)</td>
+                <td>@Html.DisplayFor(m => it.WsQuantity)</td>
+                <td>@Html.DisplayFor(m => it.Quantity)</td>
+                <td>@Html.DisplayFor(m => it.Amount)</td>
+                <td>@Html.DisplayFor(m => it.AmountBas)</td>
+                <td>@Html.DisplayFor(m => it.Weight)</td>
+                <td>@Html.DisplayFor(m => it.Shipment)</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script type="text/javascript">
+    $(function () {
+        grid = $("table#grid").DataTable({
+            "aaSorting": []
+        });
+    })
+</script>
+
+
+

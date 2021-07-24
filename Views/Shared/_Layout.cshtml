@@ -1,0 +1,99 @@
+﻿@{
+    ViewBag.Title = "賣貓咪的小蝴蝶Σ( ° △ °)";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title> @ViewBag.Title</title>
+
+    @Scripts.Render(
+            "~/bundles/jquery",
+            "~/bundles/common"
+            )
+
+    @Styles.Render(
+            "~/bundles/css",
+            "~/bundles/site/css"
+            )
+</head>
+<body>
+    <div id="cbody">
+        <div id="menu" class="row">
+            <h3 class="alert alert-info" style="text-align:center; font-weight:bold;">@ViewBag.Title</h3>
+            @*<nav>
+                    <ul class="nav navbar-nav">
+                        <li>@Html.ActionLink("首頁", "Index", "Home")</li>
+                        <li>@Html.ActionLink("費率設定", "Index", "RateConfig")</li>
+                        <li>@Html.ActionLink("匯率設定", "Index", "ExchangeRate")</li>
+                        <li>@Html.ActionLink("商品設定", "Index", "ProductBase")</li>
+                        <li>@Html.ActionLink("下單交易", "Index", "OrderTrans")</li>
+                        <li>@Html.ActionLink("批發交易", "Index", "WholeSale")</li>
+                        <li>@Html.ActionLink("商品庫存結帳", "Index", "PMAccount")</li>
+                        <li>@Html.ActionLink("商品庫存解除結帳", "Index", "PMUnAccount")</li>
+                        <li>@Html.ActionLink("金流庫存結帳", "Index", "CMAccount")</li>
+                        <li>@Html.ActionLink("金流庫存解除結帳", "Index", "CMUnAccount")</li>
+                        <li>@Html.ActionLink("商品庫存", "Index", "ProductMast")</li>
+                        <li>@Html.ActionLink("金流庫存", "Index", "CashFlowMast")</li>
+                        <li>@Html.ActionLink("熱門商品", "Index", "PopProducts")</li>
+                    </ul>
+                </nav>*@
+            <nav class="navbar navbar-default">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#MenuBar">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                    </div>
+                    <div class="collapse navbar-collapse" id="MenuBar">
+                        <ul class="nav navbar-nav">
+                            <li>
+                                @Html.ActionLink("首頁", "Index", "Home")
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">基本設定<span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li>@Html.ActionLink("費率設定", "Index", "RateConfig")</li>
+                                    <li>@Html.ActionLink("匯率設定", "Index", "ExchangeRate")</li>
+                                    <li>@Html.ActionLink("商品設定", "Index", "ProductBase")</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">下單/批發<span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li>@Html.ActionLink("下單交易", "Index", "OrderTrans")</li>
+                                    <li>@Html.ActionLink("批發交易", "Index", "WholeSale")</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">結帳<span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li>@Html.ActionLink("商品庫存結帳", "Index", "PMAccount")</li>
+                                    <li>@Html.ActionLink("商品庫存解除結帳", "Index", "PMUnAccount")</li>
+                                    <li>@Html.ActionLink("金流庫存結帳", "Index", "CMAccount")</li>
+                                    <li>@Html.ActionLink("金流庫存解除結帳", "Index", "CMUnAccount")</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">報表<span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li>@Html.ActionLink("商品庫存", "Index", "ProductMast")</li>
+                                    <li>@Html.ActionLink("金流庫存", "Index", "CashFlowMast")</li>
+                                    <li>@Html.ActionLink("熱門商品", "Index", "PopProducts")</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+        <div id="container" class="row">
+            @RenderBody()
+            @RenderSection("scripts", required: false)
+        </div>
+    </div>
+</body>
+</html>

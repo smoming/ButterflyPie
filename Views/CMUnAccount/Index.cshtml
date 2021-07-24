@@ -1,0 +1,21 @@
+﻿@model AccountQuery
+
+@if (TempData["message"] != null)
+{
+    Html.MessageView(((BooleanMessage)TempData["message"]).Message);
+}
+<fieldset>
+    <legend>金流庫存解除結帳</legend>
+    @using (Html.BeginForm("UnAccounted", "PMUnAccount"))
+    {
+        <table>
+            <tr>
+                <td>
+                    @Html.EditorFor(m => m.TradeDate)~
+                <b>@Html.DisplayFor(m => m.LastestDate)</b>@Html.HiddenFor(m => m.LastestDate)
+            </td>
+            <td>@IconHelper.IconButton("解除結帳", Icon.Save, "btnAccount", "submit")</td>
+        </tr>
+    </table>
+    }
+</fieldset>

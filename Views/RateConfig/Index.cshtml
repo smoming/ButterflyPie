@@ -1,0 +1,78 @@
+﻿@model RateConfigQuery
+
+<fieldset>
+    <legend>費率設定資料</legend>
+    <table>
+        <tr>
+            <td>
+                @Html.EditorFor(m => m.QueryDate)
+            @IconHelper.IconButton("查詢", Icon.Search, "btnQuery")
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @*@Ajax.ActionLink("新增", "Create", null, new AjaxOptions()
+                {
+                    HttpMethod = "Get",
+                    InsertionMode = InsertionMode.Replace,
+                    UpdateTargetId = "EditV",
+                }, HtmlAttributes.ToButton)*@
+        @IconHelper.IconButton("新增", Icon.Add, "btnCreate")
+    </td>
+</tr>
+</table>
+</fieldset>
+
+<div id="EditV"></div>
+<br />
+<div id="GridV"></div>
+
+@section scripts {
+    <script type="text/javascript">
+        var urlGrid = '@Url.Action("Grid")';
+        var urlCreate = '@Url.Action("Create")';
+        var urlEdit = '@Url.Action("Edit")';
+        var EditV, GridV, grid;
+
+        $(function () {
+            EditV = $("#EditV");
+            GridV = $("#GridV");
+
+            GridV.on("click", "tbody tr", DatarowClick);
+            EditV.on("click", "#btnCancel", clearEdit);
+
+            $("#btnQuery").on("click", LoadGrid);
+            $("#btnCreate").on("click", function () {
+                EditV.load(urlCreate);
+            });
+
+            LoadGrid();
+        });
+
+        function LoadGrid() {
+            GridV.load(urlGrid, { date: $("#QueryDate").val() });
+        }
+
+        function clearEdit() {
+            EditV.empty();
+        }
+
+        function DatarowClick() {
+            var currData = grid.row(this).data();
+            if (currData != null) {
+                EditV.load(urlEdit, {
+                    xEffectiveDate: currData[0],
+                    xCategory: currData[1]
+                });
+            }
+        }
+
+        function Saved(d) {
+            if (d.isSuccess)
+                LoadGrid();
+
+            alert(d.Message);
+        }
+
+    </script>
+}

@@ -1,0 +1,26 @@
+﻿@model ExchangeRate
+
+<table>
+    <tr>
+        <td width="10%">日期</td>
+        <td width="90%">@Html.EditorFor(m => m.TradeDate)</td>
+    </tr>
+    <tr>
+        <td>原始幣別</td>
+        <td>@Html.EditorFor(m => m.CurrencyFrom)</td>
+    </tr>
+    <tr>
+        <td>換匯幣別</td>
+        <td>@Html.EditorFor(m => m.CurrencyTo)</td>
+    </tr>
+    <tr>
+        <td>匯率</td>
+        <td>@Html.EditorFor(m => m.Rate)</td>
+    </tr>
+</table>
+
+<script type="text/javascript">
+    $(function () {
+        $("#EditV").find("#TradeDate, #CurrencyFrom, #CurrencyTo").attr("readonly", true);
+    });
+</script>

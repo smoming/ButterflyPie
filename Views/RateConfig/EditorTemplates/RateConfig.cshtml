@@ -1,0 +1,16 @@
+﻿@model RateConfig
+
+<table>
+    <tr>
+        <td width="10%">生效日期</td>
+        <td width="90%">@Html.EditorFor(m => m.EffectiveDate)</td>
+    </tr>
+    <tr>
+        <td>類別</td>
+        <td>@Html.DropDownListFor(m => m.Category, shared.Category())</td>
+    </tr>
+    <tr>
+        <td>費率百分比/費率</td>
+        <td>@Html.EditorFor(m => m.PercentageRate)</td>
+    </tr>
+</table>

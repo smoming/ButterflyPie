@@ -1,0 +1,38 @@
+﻿@model WholeSale
+
+<fieldset>
+    <legend>修改</legend>
+    @using (Ajax.BeginForm("Update", new AjaxOptions()
+        {
+            HttpMethod = "Post",
+            InsertionMode = InsertionMode.Replace,
+            UpdateTargetId = "EditV",
+            OnSuccess = "Saved"
+        }))
+    {
+        @Html.EditorForModel()
+        @IconHelper.IconButton("儲存", Icon.Cancel, "btnSave", "submit")
+        @IconHelper.IconButton("取消", Icon.Cancel, "btnCancel")
+        @Ajax.ActionLink("刪除", "Delete", new
+            {
+                xTradeDate = Model.TradeDate,
+                xProductID = Model.ProductID
+            }, new AjaxOptions()
+            {
+                HttpMethod = "Post",
+                InsertionMode = InsertionMode.Replace,
+                UpdateTargetId = "EditV",
+                OnSuccess = "Saved"
+            }, IconHelper.IconAttr(Icon.Delete));
+    }
+</fieldset>
+
+<script type="text/javascript">
+    $(function () {
+        $("#EditV").find("#TradeDate, #ProductID").attr("readonly", true);
+
+        DoShipmente();
+    });
+</script>
+
+

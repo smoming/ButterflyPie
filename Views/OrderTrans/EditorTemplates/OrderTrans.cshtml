@@ -1,0 +1,59 @@
+﻿@model OrderTrans
+
+<table>
+    <tr>
+        <td>下單日期</td>
+        <td>@Html.EditorFor(m => m.OrderDate)</td>
+        <td>收款日期</td>
+        <td>@Html.EditorFor(m => m.ReceiveDate)</td>
+    </tr>
+    <tr>
+        <td>下單號碼</td>
+        <td>@Html.EditorFor(m => m.OrderNo)</td>
+        <td>收款金額</td>
+        <td>@Html.EditorFor(m => m.ReceivedAmount)</td>
+    </tr>
+    <tr>
+        <td>使用者代碼</td>
+        <td>@Html.EditorFor(m => m.UserID)</td>
+        <td>備註</td>
+        <td>@Html.EditorFor(m => m.Remark)</td>
+    </tr>
+    <tr>
+        <td>商品代碼</td>
+        <td>@Html.EditorFor(m => m.ProductID)</td>
+    </tr>
+    <tr>
+        <td>數量</td>
+        <td>@Html.EditorFor(m => m.Quantity)</td>
+    </tr>
+    <tr>
+        <td>金額(台幣)</td>
+        <td>@Html.EditorFor(m => m.Amount)</td>
+    </tr>
+</table>
+
+<script type="text/javascript">
+    $(function () {
+        EditV.find("#OrderDate, #OrderNo").attr("readonly", true);
+
+        EditV.find("#ProductID").typeahead({
+            displayText: function (item) {
+                return item.Name;
+            },
+            items: 10,
+            source: function (request, response) {
+                return response(dataSource)
+            },
+            updater: function (itme) {
+                EditV.find("#ProductID").val(itme.ID);
+                $.post(urlGetAmount, { xOrderDate: $("#OrderDate").val(), xID: $("#ProductID").val(), xQuantity: $("#Quantity").val() }, function (d) {
+                    EditV.find("#Amount").val(d.xAmount);
+                });
+            },
+            matcher: function (item) {
+                return ~item.Name.indexOf(this.query);
+            }
+        });
+    });
+</script>

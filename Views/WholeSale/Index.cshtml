@@ -1,0 +1,150 @@
+﻿@model WholeSaleQuery
+
+<fieldset>
+    <legend>批發交易資料</legend>
+    <table>
+        <tr>
+            <td>
+                @Html.EditorFor(m => m.TradeDate)
+                @IconHelper.IconButton("查詢", Icon.Search, "btnQuery")
+                @IconHelper.IconButton("試算", Icon.Search, "btnPre")
+                @IconHelper.IconButton("列印", Icon.Print, "btnPrint")
+                自用
+                @Html.CheckBoxFor(m => m.IsSelf)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @*@Ajax.ActionLink("新增", "Create", null, new AjaxOptions()
+                    {
+                        HttpMethod = "Get",
+                        InsertionMode = InsertionMode.Replace,
+                        UpdateTargetId = "EditV",
+                    }, IconHelper.IconAttr(Icon.Add))
+                    @Ajax.ActionLink("新增運費", "CreateShipment", null, new AjaxOptions()
+                    {
+                        HttpMethod = "Get",
+                        InsertionMode = InsertionMode.Replace,
+                        UpdateTargetId = "EditV",
+                        OnSuccess = "DoShipmente"
+                    }, IconHelper.IconAttr(Icon.Add))*@
+                @IconHelper.IconButton("新增", Icon.Add, "btnCreate")
+                @IconHelper.IconButton("新增運費", Icon.Add, "btnCreateShipment")
+            </td>
+        </tr>
+    </table>
+</fieldset>
+
+<div id="EditV"></div>
+<br />
+<div id="GridV"></div>
+
+@section scripts {
+    <script type="text/javascript">
+        var urlPreGrid = '@Url.Action("PreGrid")';
+        var urlGrid = '@Url.Action("Grid")';
+        var urlCreate = '@Url.Action("Create")';
+        var urlCreateShipment = '@Url.Action("CreateShipment")';
+        var urlEdit = '@Url.Action("Edit")';
+        var urlGetQuantityAmount = '@Url.Action("GetQuantityAmount")';
+        var urlGetShipment = '@Url.Action("GetShipment")';
+        var urlGetAuto = '@Url.Action("GetAuto")';
+        var urlReport = '@Url.Action("Report")';
+        var EditV, GridV, grid;
+        var DoPre = false;
+        var dataSource = new Array();
+
+        $(function () {
+            EditV = $("#EditV");
+            GridV = $("#GridV");
+
+            GridV.on("click", "tbody tr", DatarowClick);
+            EditV.on("click", "#btnCancel", clearEdit);
+
+            $("#btnQuery").on("click", function () {
+                DoPre = false;
+                LoadGrid(urlGrid);
+            });
+            $("#btnCreate").on("click", function () {
+                DoPre = false;
+                EditV.load(urlCreate, function () {
+                    EditV.find("#Weight, #Shipment").attr("readonly", true);
+                });
+            });
+            $("#btnCreateShipment").on("click", function () {
+                DoPre = false;
+                EditV.load(urlCreateShipment, DoShipmente);
+            });
+            $("#btnPre").on("click", function () {
+                DoPre = true;
+                LoadGrid(urlPreGrid);
+            });
+            $("#btnPrint").on("click", function () {
+                DoPre = false;
+                window.open(urlReport + "?xTradeDate=" + $("#TradeDate").val() + "&xSelf=" + $("#IsSelf").prop("checked"));
+            });
+
+            LoadGrid(urlGrid);
+
+            EditV.on("change", "#WsQuantity", function () {
+                $.post(urlGetQuantityAmount, { xTradeDate: $("#TradeDate").val(), xProductID: $("#ProductID").val(), xWsQuantity: $("#WsQuantity").val() }, function (d) {
+                    EditV.find("#Quantity").val(d.xQuantity);
+                    EditV.find("#Amount").val(d.xAmount);
+                    EditV.find("#AmountBas").val(d.xAmountBas);
+                });
+            });
+
+            EditV.on("change", "#Weight", function () {
+                $.post(urlGetShipment, { xTradeDate: $("#TradeDate").val(), xWeight: $("#Weight").val() }, function (d) {
+                    EditV.find("#Shipment").val(d.xShipment);
+                });
+            });
+
+            SetAutoData();
+        });
+
+        function LoadGrid(url) {
+            GridV.load(url, { xTradeDate: $("#TradeDate").val() }, function () {
+                if (DoPre)
+                    GridV.find("#btnSave").show();
+                else
+                    GridV.find("#btnSave").hide();
+            });
+        }
+
+        function clearEdit() {
+            EditV.empty();
+        }
+
+        function DatarowClick() {
+            var currData = grid.row(this).data();
+            if (currData != null) {
+                EditV.load(urlEdit, {
+                    xTradeDate: currData[0],
+                    xProductID: currData[1]
+                }, function () { DoPre = false; });
+            }
+        }
+
+        function Saved(d) {
+            if (d.isSuccess)
+                LoadGrid(urlGrid);
+
+            alert(d.Message);
+        }
+
+        function DoShipmente() {
+            if (EditV.find("#ProductID").val() == "Shipment")
+                EditV.find("#Amount, #AmountBas, #WsQuantity, #Quantity, #ProductID").attr("readonly", true);
+            else
+                EditV.find("#Weight, #Shipment").attr("readonly", true);
+        }
+
+        function SetAutoData() {
+            $.get(urlGetAuto, function (d) {
+                dataSource = d;
+            });
+        }
+
+    </script>
+}

@@ -1,0 +1,17 @@
+﻿@model PopProductsQuery
+
+<fieldset>
+    <legend>熱門商品</legend>
+    @using (Html.BeginForm("Report", "PopProducts", FormMethod.Post))
+    { 
+        <table>
+            <tr>
+                <td>
+                    @Html.EditorFor(m => m.QueryDate_Start)~
+                    @Html.EditorFor(m => m.QueryDate_End)
+                    @IconHelper.IconButton("列印", Icon.Print, "btnPrint", "submit")
+                </td>
+            </tr>
+        </table>
+    }
+</fieldset>
